@@ -75,10 +75,12 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(0, 0, 10, 300);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Senha:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(20, 170, 100, 30);
+        jLabel5.setBounds(20, 170, 60, 30);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Usuario:");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(20, 120, 50, 30);
