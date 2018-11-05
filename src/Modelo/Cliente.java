@@ -19,7 +19,7 @@ public class Cliente {
     private String Email;
     private String Bairro;
     private String Rua;
-    private String Numero;
+    private int Numero;
     private String CEP;
 
     public int getCodigo() {
@@ -94,11 +94,11 @@ public class Cliente {
         this.Rua = Rua;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return Numero;
     }
 
-    public void setNumero(String Numero) {
+    public void setNumero(int Numero) {
         this.Numero = Numero;
     }
 
