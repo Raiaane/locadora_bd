@@ -5,6 +5,12 @@
  */
 package Visao.Cadastrar;
 
+import DAO.Conexao;
+import DAO.FuncionarioDAO;
+import Modelo.Funcionario;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Raiane
@@ -35,8 +41,8 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -50,21 +56,21 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
 
         jLabel2.setText("Codigo:");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 80, 90, 30);
+        jLabel2.setBounds(20, 80, 50, 30);
 
         jLabel3.setText("Nome:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 140, 31, 14);
+        jLabel3.setBounds(20, 140, 50, 20);
 
         jLabel4.setText("Login:");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 190, 29, 14);
+        jLabel4.setBounds(20, 190, 60, 20);
 
         jLabel5.setText("Senha:");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 240, 34, 14);
+        jLabel5.setBounds(20, 240, 50, 20);
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(80, 80, 80, 30);
+        jTextField1.setBounds(90, 80, 80, 30);
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,25 +82,34 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         jPanel1.add(jTextField3);
         jTextField3.setBounds(80, 180, 180, 30);
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(80, 230, 180, 30);
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pass_key.png"))); // NOI18N
         jPanel1.add(jLabel6);
         jLabel6.setBounds(350, 90, 170, 140);
+        jPanel1.add(jPasswordField1);
+        jPasswordField1.setBounds(80, 230, 180, 30);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         jButton3.setText("Limpar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cancelar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cadastrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,9 +182,46 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       String nome = jTextField2.getText();
+       String login = jTextField3.getText();
+       String senha = jPasswordField1.getText();
+       
+       if(nome.equalsIgnoreCase("")||login.equalsIgnoreCase("")||senha.equalsIgnoreCase("")){
+           JOptionPane.showMessageDialog(null,"Todos os Campos Precisam ser Preenchidos","Video Locadora",JOptionPane.WARNING_MESSAGE);
+       
+       }else{
+           Connection con = Conexao.AbrirConexao();
+           FuncionarioDAO sql = new FuncionarioDAO(con);
+           Funcionario f = new Funcionario();
+           f.setNome(nome);
+           f.setLogin(login);
+           f.setSenha(senha);
+           
+           sql.Inserir_Funcionario(f);
+           
+           Conexao.FecharConexao(con);
+           
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jPasswordField1.setText("");
+            
+            JOptionPane.showMessageDialog(null,"Cadastrado Com Sucesso","Video Locadora",JOptionPane.INFORMATION_MESSAGE);
+       }
+       
+       
+       
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jPasswordField1.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,9 +271,9 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

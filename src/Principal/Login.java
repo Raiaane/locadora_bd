@@ -43,10 +43,10 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        pfSenha = new javax.swing.JTextField();
         tfUsuario = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        pfSenha = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,8 +84,6 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("Usuario:");
         jPanel2.add(jLabel6);
         jLabel6.setBounds(20, 120, 50, 30);
-        jPanel2.add(pfSenha);
-        pfSenha.setBounds(90, 170, 190, 30);
         jPanel2.add(tfUsuario);
         tfUsuario.setBounds(89, 120, 190, 30);
 
@@ -103,6 +101,8 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2);
         jButton2.setBounds(50, 230, 110, 30);
+        jPanel2.add(pfSenha);
+        pfSenha.setBounds(90, 170, 190, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,7 +208,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField pfSenha;
+    private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }
