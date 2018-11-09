@@ -25,7 +25,7 @@ public class FuncionarioDAO extends ExecuteSQL {
     public boolean Logar(String login, String senha){
          boolean finalResult = false;
          try{
-         String consulta = "select login, senha from funcionario" + "where login = '"+login+ "' and senha = '" + senha +"'";
+         String consulta = "select login, senha from funcionario where login = '"+login+ "' and senha = '" + senha +"'";
              PreparedStatement ps = getCon().prepareStatement(consulta);
              ResultSet rs = ps.executeQuery();
          
@@ -135,6 +135,96 @@ public class FuncionarioDAO extends ExecuteSQL {
            return ex.getMessage();
        }
    
+   
+   }
+     //Listar
+      public List<Funcionario> ListarComboFuncionario(){
+   String sql = "SELECT nome FROM funcionario";
+   List<Funcionario> lista = new ArrayList<>();
+   
+       try {
+           PreparedStatement pr = getCon().prepareStatement(sql);
+           ResultSet rs = pr.executeQuery();
+           
+           if(rs!= null){
+            while(rs.next()){
+                Funcionario f = new Funcionario();
+                f.setNome(rs.getString(1));
+                lista.add(f);
+            }        
+            return lista;
+           }else{
+            return null;
+           }           
+       } catch (SQLException ex) {
+       return null;
+       }
+   
+   }
+      public List<Funcionario> ConsultaCodigoFuncionario(String nome){
+   String sql = "SELECT idfuncionario FROM funcionario WHERE nome = '"+nome+"'";
+   List<Funcionario> lista = new ArrayList<>();
+   
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!= null){
+                while(rs.next()){
+                    Funcionario f = new Funcionario();
+                    f.setCod(rs.getInt(1));
+                    lista.add(f);
+                }
+                return lista;            
+           }else{
+                return null;
+           }
+       } catch (SQLException ex) {
+           return null;
+       }
+   
+   }
+     //Consultar
+   public List<Funcionario> ListarFuncionario(){
+   String sql = "SELECT * FROM funcionario";
+   List<Funcionario> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Funcionario f = new Funcionario();
+                f.setCod(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setLogin(rs.getString(3));
+                f.setSenha(rs.getString(4));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+
+       //Excluir
+   public String ExcluirFuncionario(Funcionario f){
+   String sql = "DELETE FROM funcionario WHERE idfuncionario = ? AND Nome = ?";
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ps.setInt(1, f.getCod());
+           ps.setString(2,f.getNome());
+           if(ps.executeUpdate()>0){
+                return "Excluido com sucesso!";
+           }else{
+                return "Erro ao excluir!";
+           }
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
    
    }
 }

@@ -5,6 +5,15 @@
  */
 package Visao.Excluir;
 
+import DAO.Conexao;
+import java.sql.Connection;
+import Modelo.Classificacao;
+import java.util.ArrayList;
+import java.util.List;
+
+import DAO.ClassificacaoDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Raiane
@@ -16,6 +25,20 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
      */
     public ExcluirClassificacao() {
         initComponents();
+         AtualizaCombo();
+       
+    }
+    private void AtualizaCombo(){
+         Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+        lista =  sql.ListarComboClassificacao();
+       jCB_Nome.addItem("");
+        
+        for(Classificacao b :lista){
+       jCB_Nome.addItem(b.getNome());
+        }
+        Conexao.FecharConexao(con);
     }
 
     /**
@@ -30,15 +53,15 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        codi = new javax.swing.JTextField();
+        jCB_Nome = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Excluir"));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Excluir Classificação");
@@ -60,11 +83,32 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Classificação:");
 
-        jButton1.setText("Ok");
+        jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_NomeActionPerformed(evt);
+            }
+        });
 
+        jButton1.setBackground(new java.awt.Color(153, 153, 0));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setText("Ok");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(204, 51, 0));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,10 +119,10 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jCB_Nome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,9 +137,9 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                    .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -104,6 +148,49 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_NomeActionPerformed
+         Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+      String nome = jCB_Nome.getSelectedItem().toString();
+              lista = sql.ConsultaCodigoClassificacao(nome);
+
+        for(Classificacao b : lista){
+            int a = b.getCodigo();
+            codi.setText(""+ a);
+        }
+        Conexao.FecharConexao(con);
+    }//GEN-LAST:event_jCB_NomeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String cod = codi.getText();
+        String nome = jCB_Nome.getSelectedItem().toString();
+
+        Connection con = Conexao.AbrirConexao();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        Classificacao c = new Classificacao();
+
+        if(nome.equals("")){
+            JOptionPane.showMessageDialog(null,"Nenhum Nome selecionado",
+                    "Video Locadora",JOptionPane.WARNING_MESSAGE);
+        }else{
+            int b = JOptionPane.showConfirmDialog(null,"Deseja realmene excluir \n "
+                    + "("+cod+") ("+nome+")","Video Locadora",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            if(b==0){
+                int codigo = Integer.parseInt(cod);
+                c.setCodigo(codigo);
+                c.setNome(nome);
+                sql.ExcluirClassificacao(c);
+                Conexao.FecharConexao(con);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,12 +228,12 @@ public class ExcluirClassificacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField codi;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jCB_Nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

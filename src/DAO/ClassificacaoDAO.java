@@ -23,22 +23,30 @@ public class ClassificacaoDAO extends ExecuteSQL{
     super(con);
     }
     //Inserir
-    public String InserirClassificacao(Classificacao c){
-    String sql = "INSERT INTO classificacao VALUES(0,?,?)";
+    public String Inserir_Classificacao(Classificacao a){
+        
+        String sql = "insert into classificacao values (0,?,?)";
     
-        try {
+        try{
             PreparedStatement ps = getCon().prepareStatement(sql);
             
-            ps.setString(1,c.getNome());
-            ps.setDouble(2,c.getPreco());
+             ps.setString(1, a.getNome());
+             ps.setString(2, a.getPreco());
+              
+              if(ps.executeUpdate() > 0){
+              
+                  return "Inserido com sucesso";
+              
+              } else {
+              
+                  return "Erro ao inserir";
             
-            if(ps.executeUpdate()>0){
-            return "Cadastrado com sucesso";
-            }else{
-                return "Erro ao cadastrar";
-            }
-        } catch (SQLException ex) {
-            return ex.getMessage();
+              }
+              
+        } catch (SQLException e){
+        
+            return e.getMessage();
+        
         }
     }
     //Testar
@@ -68,7 +76,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
         try {
             PreparedStatement ps = getCon().prepareStatement(sql);
             ps.setString(1,c.getNome());
-            ps.setDouble(2,c.getPreco());
+            ps.setString(2,c.getPreco());
             ps.setInt(3,c.getCodigo());
             
             if (ps.executeUpdate()>0) {
@@ -97,7 +105,7 @@ public class ClassificacaoDAO extends ExecuteSQL{
                     Classificacao c = new Classificacao();
                     c.setCodigo(rs.getInt(1));
                     c.setNome(rs.getString(2));
-                    c.setPreco(rs.getDouble(3));
+                    c.setPreco(rs.getString(3));
                     lista.add(c);
                 }
                 return lista;
@@ -109,4 +117,162 @@ public class ClassificacaoDAO extends ExecuteSQL{
         }   
     
     }
+      //Consultar
+   public List<Classificacao> ListarClassificacao(){
+   String sql = "SELECT * FROM classificacao";
+   List<Classificacao> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Classificacao f = new Classificacao();
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setPreco(rs.getString(3));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+   //listar
+   public List<Classificacao> Pesquisar_Nome_Classificacao(String nome){
+   String sql = "SELECT * FROM classificacao WHERE Nome LIKE '%"+nome+"%'";
+   List<Classificacao> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                 Classificacao c = new Classificacao();
+                c.setCodigo(rs.getInt(1));
+                c.setNome(rs.getString(2));
+                c.setPreco(rs.getString(3));
+                lista.add(c);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+   //listar
+   public List<Classificacao> Pesquisar_Codigo_Classificacao(int cod){
+   String sql = "SELECT * FROM classificacao WHERE idclassificacao ='"+cod+"'";
+   List<Classificacao> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                 Classificacao c = new Classificacao();
+                c.setCodigo(rs.getInt(1));
+                c.setNome(rs.getString(2));
+                c.setPreco(rs.getString(3));
+                lista.add(c);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+     //Excluir
+  public String ExcluirClassificacao(Classificacao c){
+   String sql = "DELETE FROM classificacao WHERE idclassificacao = ? AND Nome = ?";
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ps.setInt(1,c.getCodigo());
+           ps.setString(2,c.getNome());
+           if(ps.executeUpdate()>0){
+           return "Excluido com sucesso";
+           }else{
+           return "Erro ao excluir";
+           }           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
+   }
+  //Listar combo 
+  public List<Classificacao> ListarComboClassificacao(){
+    String sql = "Select Nome FROM classificacao";
+    List<Classificacao> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           if(rs!=null){
+           while(rs.next()){
+           Classificacao c = new Classificacao();
+           c.setNome(rs.getString(1));
+           lista.add(c);
+           }
+           
+           }else{
+           return null;
+           }       
+           return lista;
+       } catch (SQLException ex) {
+         return null;
+       }
+   
+   }
+   public List<Classificacao> ConsultaCodigoClassificacao(String nome){
+    String sql = "SELECT idclassificacao FROM classificacao WHERE nome ='"+nome+"'";
+    List<Classificacao> lista = new ArrayList<>();
+    try {
+        PreparedStatement ps = getCon().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if(rs!=null){
+            while (rs.next()) {                
+            Classificacao c = new Classificacao();
+            c.setCodigo(rs.getInt(1));
+            lista.add(c);            
+            }
+        }else{
+        return null;
+        }        
+        return lista;
+       } catch (SQLException ex) {
+       return null;
+       }
+    
+   }
+   //ListarPRECO
+   public List<Classificacao> ListarPrecoClassificacao(int cod){
+   String sql = "SELECT preco FROM classificacao WHERE idclassificacao='"+cod+"'";
+   List<Classificacao> lista = new ArrayList<>();
+   
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+           while(rs.next()){
+           Classificacao c = new Classificacao();
+           c.setPreco(rs.getString(1));
+           lista.add(c);
+           }
+           return lista;
+           }else{
+           return null;
+           }
+           
+       } catch (Exception e) {
+           return null;
+       }
+   }
+  
 }

@@ -6,8 +6,10 @@
 package Visao.Cadastrar;
 
 import DAO.ClassificacaoDAO;
+import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Classificacao;
+import Modelo.Cliente;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -39,9 +41,9 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
+        jTF_Nome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        preco = new javax.swing.JFormattedTextField();
+        jTf_Preco = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -79,10 +81,16 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nome:");
 
+        jTF_Nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_NomeActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Preço:");
 
-        preco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.00"))));
+        jTf_Preco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.00"))));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Limpar");
@@ -119,8 +127,8 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTF_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTf_Preco, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
@@ -141,11 +149,11 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTf_Preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,33 +181,46 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    String no = nome.getText();
-    String pre = preco.getText();
-    if(no.equalsIgnoreCase("")||pre.equalsIgnoreCase("")){
-        JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos",
-                "Video Locadora",JOptionPane.WARNING_MESSAGE);
-    }else{
-    Connection con = Conexao.AbrirConexao();
-    ClassificacaoDAO sql = new ClassificacaoDAO(con);
-    Classificacao c = new Classificacao();
-    double p = Double.parseDouble(pre);
-    c.setNome(no);
-    c.setPreco(p);
     
-    sql.InserirClassificacao(c);
-    jTextField1.setText("");
-    nome.setText("");
-    preco.setText("");
-    Conexao.FecharConexao(con);
-    JOptionPane.showMessageDialog(null,"inserido com sucesso!");
-    }
-    
+          String nome = jTF_Nome.getText();
+          String preco = jTf_Preco.getText();
+          
+            if(nome.equals("") || preco.equals("")){
+                
+              JOptionPane.showMessageDialog(null, "Nenhum campo pode estar vazio" , "video locadora" , 
+              JOptionPane.WARNING_MESSAGE);
+          
+            } else {
+            
+              Connection con = Conexao.AbrirConexao();
+              ClassificacaoDAO sql = new ClassificacaoDAO(con);
+              
+              Classificacao a = new Classificacao();
+              
+              a.setNome(nome);
+              a.setPreco(preco);
+              
+              sql.Inserir_Classificacao(a);
+              Conexao.FecharConexao(con);
+              
+              jTF_Nome.setText("");
+              jTf_Preco.setText("");
+              
+              JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso" , "Video Locadora" , 
+               JOptionPane.INFORMATION_MESSAGE);
+              dispose();
+          }
+          
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        nome.setText("");
-        preco.setText("");
+        jTF_Nome.setText("");
+        jTf_Preco.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTF_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_NomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_NomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,8 +267,8 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTF_Nome;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField nome;
-    private javax.swing.JFormattedTextField preco;
+    private javax.swing.JFormattedTextField jTf_Preco;
     // End of variables declaration//GEN-END:variables
 }

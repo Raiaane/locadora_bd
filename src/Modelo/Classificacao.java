@@ -12,7 +12,7 @@ package Modelo;
 public class Classificacao {
     private int codigo;
     private String nome;
-    private double preco;
+    private String preco;
 
     public int getCodigo() {
         return codigo;
@@ -30,12 +30,14 @@ public class Classificacao {
         this.nome = nome;
     }
 
-    public double getPreco() {
+    public String getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(String preco) {
         this.preco = preco;
     }
+
+    
     
 }

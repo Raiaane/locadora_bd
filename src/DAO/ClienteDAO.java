@@ -97,8 +97,7 @@ public class ClienteDAO extends ExecuteSQL {
     //pesquisar cliente 
     
     public List<Cliente> Pesquisar_Nome_Cliente(String nome){
-        String sql = "select idcliente, nome, RG, CPF, Telefone, Email"+
-                "from cliente where nome Like '"+nome+ "%'";
+        String sql = "select idcliente, nome, rg, cpf, telefone, email from cliente where nome Like '"+nome+ "%'";
          List <Cliente> lista = new ArrayList<>();
         
         try{
@@ -240,7 +239,7 @@ public class ClienteDAO extends ExecuteSQL {
    }
    
    //Consultar
-   public List<Cliente> Listar_Codigo_Cliente(int cod){
+   public List<Cliente> Pesquisar_Cod_Cliente(int cod){
    String sql = "SELECT * FROM cliente WHERE idcliente ='"+cod+"'";
    List<Cliente> lista = new ArrayList<>();
        try {
@@ -251,6 +250,11 @@ public class ClienteDAO extends ExecuteSQL {
                while (rs.next()) {                   
                 Cliente a = new Cliente();
                 a.setCodigo(rs.getInt(1));
+                a.setNome(rs.getString(2));
+                a.setRG(rs.getString(3));
+                a.setCPF(rs.getString(4));
+                a.setTelefone(rs.getString(5));
+                a.setEmail(rs.getString (6));
                 lista.add(a);
                 
                }   
@@ -261,6 +265,30 @@ public class ClienteDAO extends ExecuteSQL {
        }catch (SQLException e) {
        return null;
        }
+   }
+   //consultar
+   public List<Cliente> ConsultaCodigoCliente(String nome){
+   String sql = "SELECT idcliente FROM cliente WHERE nome = '"+nome+"'";
+   List<Cliente> lista = new ArrayList<>();
+   
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!= null){
+                while(rs.next()){
+                    Cliente c = new Cliente();
+                    c.setCodigo(rs.getInt(1));
+                    lista.add(c);
+                }
+                return lista;            
+           }else{
+                return null;
+           }
+       } catch (SQLException ex) {
+           return null;
+       }
+   
    }
    //Excluir
    public String ExcluirCliente(Cliente f){

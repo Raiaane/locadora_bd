@@ -123,6 +123,9 @@ public class Login extends javax.swing.JFrame {
         FuncionarioDAO sql = new FuncionarioDAO(con);
         String login = tfUsuario.getText();
         String senha = pfSenha.getText();
+        
+        JOptionPane
+                .showMessageDialog(null, login+" "+senha);
             if(login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")){
                 JOptionPane.showMessageDialog(null, "Nenhum campo pode estar vazio" , "video locadora" , JOptionPane.WARNING_MESSAGE);
             

@@ -5,6 +5,13 @@
  */
 package Principal;
 
+import Visao.Cadastrar.CadastrarClassificacao;
+import Visao.Cadastrar.CadastrarCliente;
+import Visao.Cadastrar.CadastrarDVD;
+import Visao.Cadastrar.CadastrarFilme;
+import Visao.Cadastrar.CadastrarFuncionario;
+import Visao.Cadastrar.CadastrarCategoria;
+
 /**
  *
  * @author Raiane
@@ -44,6 +51,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -111,12 +119,27 @@ public class Menu extends javax.swing.JFrame {
         jMenu6.add(jMenuItem4);
 
         jMenuItem5.setText("DVD");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem5);
 
         jMenuItem6.setText("Categoria");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem6);
 
         jMenuItem7.setText("Classificação");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem7);
 
         jMenuItem2.setText("Funcionário");
@@ -130,6 +153,10 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu6);
 
         jMenu5.setText("Consultar");
+
+        jMenuItem8.setText("ConsultarCliente");
+        jMenu5.add(jMenuItem8);
+
         jMenuBar1.add(jMenu5);
 
         jMenu3.setText("Alterar");
@@ -177,16 +204,28 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        new CadastrarFilme().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        new CadastrarFuncionario().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
+        new CadastrarCliente().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new CadastrarDVD().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        new CadastrarCategoria().setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        new CadastrarClassificacao().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +281,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
