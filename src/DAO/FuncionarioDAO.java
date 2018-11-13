@@ -209,6 +209,56 @@ public class FuncionarioDAO extends ExecuteSQL {
        return null;
        }
    }
+   //Consultar
+   public List<Funcionario> Pesquisar_Nome_Funcionario(String nome){
+   String sql = "SELECT * FROM funcionario WHERE Nome LIKE '%"+nome+"%'";
+   List<Funcionario> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Funcionario f = new Funcionario();
+                f.setCod(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setLogin(rs.getString(3));
+                f.setSenha(rs.getString(4));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+   //Consultar
+   public List<Funcionario> Pesquisar_Cod_Funcionario(int cod){
+   String sql = "SELECT * FROM funcionario WHERE idfuncionario ='"+cod+"'";
+   List<Funcionario> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Funcionario f = new Funcionario();
+                f.setCod(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setLogin(rs.getString(3));
+                f.setSenha(rs.getString(4));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
 
        //Excluir
    public String ExcluirFuncionario(Funcionario f){
