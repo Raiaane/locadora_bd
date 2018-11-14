@@ -30,9 +30,9 @@ import java.util.List;
            PreparedStatement ps = getCon().prepareStatement(sql);
            
            ps.setInt(1,d.getCod_filme());
-           ps.setString(2,d.getSituacao());
-           ps.setDouble(3,d.getPreco());
-           ps.setString(4,d.getData_compra());
+           ps.setDouble(2,d.getPreco());
+           ps.setString(3,d.getData_compra());
+           ps.setString(4,d.getSituacao());
            if (ps.executeUpdate() >0) {
                return "DVD Inserido Com Sucesso";
            }else{
