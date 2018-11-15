@@ -61,14 +61,9 @@ public class ConsultarDVD extends javax.swing.JFrame {
         for(DVD tab : lista){
             tbm.addRow(new String [i]);
             jTable1.setValueAt(tab.getCodigo(), i, 0);
-            jTable1.setValueAt(tab.getCod_filme(), i, 1);
-            jTable1.setValueAt(tab.getSituacao(), i, 2);
-            jTable1.setValueAt(tab.getPreco(), i, 3);
-            jTable1.setValueAt(tab.getData_compra(), i, 4);
-
-            
-            
-           
+            jTable1.setValueAt(tab.getPreco(), i, 1);
+            jTable1.setValueAt(tab.getData_compra(), i, 2);
+            jTable1.setValueAt(tab.getSituacao(), i, 3);
             i++;
         }
         Conexao.FecharConexao(con);
