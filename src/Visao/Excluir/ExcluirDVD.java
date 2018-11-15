@@ -32,16 +32,12 @@ public class ExcluirDVD extends javax.swing.JFrame {
         DVDDAO sql = new DVDDAO(con);
         List<DVD> lista = new ArrayList<>();
         lista =  sql.ListarComboDVD();
-        jCB_Nome.addItem("");
+        combo.addItem("");
         
-        for(DVD b :lista){
-        
-            jCB_Nome.addItem(b.getSituacao());
-        
+        for(DVD f :lista){
+        combo.addItem(f.getCodigo() + "");
         }
-    
         Conexao.FecharConexao(con);
-    
     }
 
 
@@ -58,7 +54,7 @@ public class ExcluirDVD extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         codi = new javax.swing.JTextField();
-        jCB_Nome = new javax.swing.JComboBox<>();
+        combo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -90,9 +86,9 @@ public class ExcluirDVD extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("DVD:");
 
-        jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
+        combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_NomeActionPerformed(evt);
+                comboActionPerformed(evt);
             }
         });
 
@@ -120,7 +116,7 @@ public class ExcluirDVD extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,7 +133,7 @@ public class ExcluirDVD extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(codi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,24 +144,24 @@ public class ExcluirDVD extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_NomeActionPerformed
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
        Connection con = Conexao.AbrirConexao();
         DVDDAO sql = new DVDDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        String nome = jCB_Nome.getSelectedItem().toString();
-        
-        lista = sql.ConsultaCodigoDVD(String data);
+        List<DVD> lista = new ArrayList<>();
+        String nome = combo.getSelectedItem().toString();
+        int c = Integer.parseInt(nome);
+        lista = sql.Listar_Codigo_DVD(c);
 
-        for(Categoria b : lista){
+        for(DVD b : lista){
             int a = b.getCodigo();
             codi.setText(""+ a);
         }
         Conexao.FecharConexao(con);
-    }//GEN-LAST:event_jCB_NomeActionPerformed
+    }//GEN-LAST:event_comboActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          String cod = codi.getText();
-        String nome = jCB_Nome.getSelectedItem().toString();
+        String nome = combo.getSelectedItem().toString();
 
         Connection con = Conexao.AbrirConexao();
         DVDDAO sql = new DVDDAO(con);
@@ -227,9 +223,9 @@ public class ExcluirDVD extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField codi;
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jCB_Nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
