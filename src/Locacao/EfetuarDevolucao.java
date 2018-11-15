@@ -32,8 +32,11 @@ public class EfetuarDevolucao extends javax.swing.JFrame {
      */
     public EfetuarDevolucao() {
         initComponents();
+        Teste();
+        Cliente();
+        
     }
-     private void Test(){
+     private void Teste(){
     Listar l = new Listar();
     jTextField1.setText(""+l.getCodealuguel());
     jTextField2.setText(""+l.getCoddvd());
@@ -44,7 +47,7 @@ public class EfetuarDevolucao extends javax.swing.JFrame {
     ClienteDAO sql = new ClienteDAO(con);
     List<Cliente> lista = new ArrayList<>();
     Listar l = new Listar();
-    lista = sql.CapturarCliente(l.getCodigo());
+   
     for(Cliente c:lista){
     jTextField3.setText(c.getNome());
    
@@ -59,7 +62,7 @@ public class EfetuarDevolucao extends javax.swing.JFrame {
     List<DVD> listadvd = new ArrayList<>();
     Listar l = new Listar();
     
-    listadvd=dvd.CapturarDVD(l.getCod());
+    
     
     for(DVD d :listadvd){
         pre.setText(""+d.getPreco());
@@ -69,7 +72,7 @@ public class EfetuarDevolucao extends javax.swing.JFrame {
         jTextField4.setText(f.getTitulo());
         cat.setText(""+f.getCod_categoria());
         ccla.setText(""+f.getCod_classificacao());
-        jLabel32.setIcon(new ImageIcon();
+        
         }
     }
     
